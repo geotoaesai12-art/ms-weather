@@ -11,7 +11,7 @@ export default function PrivacyPage() {
         <div className="legal">
           <section className="card legal__item">
             <h2><span className="tile tile--accent"><Icon name="search" size={18} /></span>What we process</h2>
-            <p>When you search, the city name you typed (or, if you click “Use My Location”, your approximate coordinates) is sent to our server so it can fetch weather data from OpenWeather. We do not save individual searches or build profiles of visitors.</p>
+            <p>When you search, the city name you typed (or, if you click “Use My Location”, your approximate coordinates) is sent to our server so it can fetch weather data from OpenWeather. We do not save individual searches or build profiles of visitors. Our hosting provider may keep standard technical logs (such as request addresses and times) for a short period.</p>
           </section>
           <section className="card legal__item">
             <h2><span className="tile tile--accent"><Icon name="layers" size={18} /></span>What stays in your browser</h2>

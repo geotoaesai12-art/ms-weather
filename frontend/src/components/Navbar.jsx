@@ -3,11 +3,12 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import MSLogo from './MSLogo.jsx';
 import Icon from './Icon.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
+import { CONTACT_EMAIL } from '../config/site.js';
 
 const LINKS = [
   { to: '/', label: 'Home', icon: 'home', end: true },
   { to: '/about', label: 'About', icon: 'file-circle-info' },
-  { to: '/contact', label: 'Contact', icon: 'phone-arrow-right' },
+  ...(CONTACT_EMAIL ? [{ to: '/contact', label: 'Contact', icon: 'phone-arrow-right' }] : []),
 ];
 
 export default function Navbar({ theme, onToggleTheme }) {

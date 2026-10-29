@@ -4,12 +4,12 @@ import PageHeader from '../components/PageHeader.jsx';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 
 const FEATURES = [
-  { icon: 'bolt', title: 'Real-time weather', text: 'Current conditions for any city, with the time of the last observation.' },
+  { icon: 'bolt', title: 'Current weather', text: 'Current conditions for any city, with the time of the last observation.' },
   { icon: 'calendar', title: '5-day forecast', text: 'A 3-hour outlook for each day and a five-day forecast in one clean view.' },
   { icon: 'globe', title: 'Any city, worldwide', text: 'Search by name or use your location. Times follow the city you search.' },
   { icon: 'thermometer', title: '°C and °F', text: 'Switch units at any time. We remember your choice in this browser only.' },
   { icon: 'palette', title: 'Light and dark', text: 'A comfortable theme for day or night, on phone, tablet or desktop.' },
-  { icon: 'shield', title: 'Private by default', text: 'No accounts. We do not keep a history of what you search.' },
+  { icon: 'shield', title: 'Private by default', text: 'No accounts. The site does not save your searches or build profiles.' },
 ];
 
 export default function AboutPage() {

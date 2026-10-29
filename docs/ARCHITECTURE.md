@@ -6,4 +6,3 @@ Browser -> Vercel (React site from frontend/ + API function api/index.js) -> Ope
 - The API key lives only in Vercel's environment variables (or `backend/.env` locally). It is never in the frontend.
 - The website and the API share one address, so no CORS setup is needed. Other websites are rejected unless listed in `ALLOWED_ORIGINS`.
 - Weather answers are cached in memory (per function instance) and by Vercel's CDN for 5 minutes. Errors are never cached.
-- MongoDB is not used yet.

@@ -1,4 +1,4 @@
-// Small in-memory cache with expiry. (MongoDB caching is added in Phase 5.)
+// Small in-memory cache with expiry.
 export class TTLCache {
   constructor({ maxEntries = 500, now = () => Date.now() } = {}) {
     this.maxEntries = maxEntries;

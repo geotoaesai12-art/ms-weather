@@ -11,7 +11,7 @@ export default function Hero({ children }) {
           Weather, <span className="hero__accent">Made Simple.</span>
         </h1>
         <p className="hero__subtitle">
-          Real-time weather and a 5-day forecast for any city in the world. Search a city and plan your day.
+          Current weather and a 5-day forecast for any city in the world. Search a city and plan your day.
         </p>
         {children}
       </div>

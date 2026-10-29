@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "lint": "echo \"ESLint will be added in Phase 6\"",
     "test": "node --test"
   },
   "engines": {

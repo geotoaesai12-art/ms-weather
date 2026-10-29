@@ -1,6 +1,6 @@
 # API contract (frontend <-> backend)
 
-This is the JSON format the frontend (Phase 2) expects. The backend (Phase 3) must return exactly this.
+This is the JSON format the frontend expects. The backend returns exactly this.
 All values are metric. The frontend converts to Fahrenheit, mph and miles when needed.
 
 Both endpoints accept either `city=<name>` OR `lat=<number>&lon=<number>`.
