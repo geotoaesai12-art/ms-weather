@@ -1,72 +1,61 @@
-MS WEATHER — WEBSITE LIVE KARNE KA ASAN GUIDE
-=============================================
-Website 2 hisson mein live hoti hai:
-  A) BACKEND (API)  -> Render.com par   (yahan aapki API key rehti hai)
-  B) FRONTEND (site) -> Vercel.com par  (yeh woh page hai jo log dekhte hain)
-Pehle A karein, phir B, phir akhri step.
+MS WEATHER — SIRF VERCEL PAR LIVE KARNE KA ASAN GUIDE
+=====================================================
+Website aur backend dono Vercel par chalte hain. Card ki zaroorat nahi.
+Aapko koi file khud edit ya delete nahi karni.
 
-------------------------------------------------
-STEP 0 — API KEY NAYI BANAYEIN (bohat zaroori)
-------------------------------------------------
-Purani key zip file mein thi, is liye usay use na karein.
-1. https://home.openweathermap.org/api_keys kholein.
-2. Purani key ko Delete karein.
-3. Nayi key banayein aur copy kar lein. Kisi ko na dikhayein.
-(Nayi key active hone mein 10 se 120 minute lag sakte hain.)
+STEP 0 — NAYI API KEY (agar abhi nahi banayi)
+  1. https://home.openweathermap.org/api_keys kholein.
+  2. PURANI key Delete karein (purani key kai baar share ho chuki hai).
+  3. Nayi key banayein aur Notepad mein save karein. Kisi ko na dikhayein.
+  (Nayi key active hone mein 10 se 120 minute lag sakte hain.)
 
-------------------------------------------------
-STEP 1 — CODE GITHUB PAR DALEIN
-------------------------------------------------
-1. github.com par new repository banayein (Private rakhna behtar hai).
-2. Is zip ka poora folder wahan upload karein.
-   NOTE: .env file aur node_modules upload NAHI honi chahiye.
-   (Is zip mein woh pehle se nikal di gayi hain.)
+STEP 1 — GITHUB PAR UPLOAD (double click)
+  1. Is folder mein "UPLOAD-TO-GITHUB.bat" par double click karein.
+  2. Agar GitHub login maange to browser mein allow kar dein.
+  3. Akhir mein "Ho gaya!" likha aaye to upload poora hai.
+  (Yeh file purani files khud hata deti hai, aur .env jaisi secret files
+   kabhi upload nahi hone deti.)
 
-------------------------------------------------
-STEP 2 — BACKEND RENDER PAR (A)
-------------------------------------------------
-1. render.com par GitHub se login karein.
-2. New + > Blueprint select karein, apni repository chunein.
-   (render.yaml file khud sab settings bhar degi.)
-3. Jab Render puchay to:
-     OPENWEATHER_API_KEY = apni nayi key paste karein
-     ALLOWED_ORIGINS     = abhi khali chhor dein (Step 4 mein bharenge)
-4. Deploy ho jaye to Render ek link dega, jaise:
-     https://ms-weather-api.onrender.com
-   Isay copy kar lein.
-5. Browser mein  <woh link>/api/health  kholein.
-   "status":"ok" nazar aaye to backend theek hai.
+STEP 2 — VERCEL PAR PROJECT BANAYEIN
+  1. https://vercel.com par "Continue with GitHub" se login karein.
+  2. Add New > Project dabayein.
+  3. Repository "ms-weather" ke saath Import dabayein.
+     (Na dikhe to "Adjust GitHub App Permissions" dabayein, ms-weather
+      select karein aur Save karein.)
 
-------------------------------------------------
-STEP 3 — FRONTEND VERCEL PAR (B)
-------------------------------------------------
-1. vercel.com par GitHub se login karein.
-2. Add New > Project, wahi repository chunein.
-3. Root Directory mein "frontend" select karein.
-4. Environment Variables mein yeh dalein:
-     VITE_API_BASE_URL  = Step 2 wala Render link (akhir mein / nahi)
-     VITE_CONTACT_EMAIL = aapki email (jaise  name@gmail.com)
-5. Deploy dabayein. Vercel aapko website ka link dega, jaise:
-     https://ms-weather.vercel.app
+STEP 3 — SETTINGS (bohat kam)
+  1. Framework Preset: "Other" rehne dein.
+  2. Root Directory: jaisa hai waisa (./) rehne dein.
+  3. Build aur Install settings KO MAT BADLEIN. vercel.json khud sambhal leti hai.
+  4. "Environment Variables" kholein aur yeh daalein:
+       OPENWEATHER_API_KEY  =  aapki NAYI key          (zaroori)
+       VITE_CONTACT_EMAIL   =  aapki email              (optional, Contact page ke liye)
+  5. "Deploy" dabayein. 2 se 4 minute lagte hain.
 
-------------------------------------------------
-STEP 4 — AKHRI STEP (dono ko jodna)
-------------------------------------------------
-1. Render > aapki service > Environment mein jayein.
-2. ALLOWED_ORIGINS mein Vercel wala link daalein
-   (akhir mein / nahi, bilkul aise):
-     https://ms-weather.vercel.app
-   Agar apna domain bhi hai to comma laga kar woh bhi daalein.
-3. Save karein. Render khud dobara start ho jayega.
-4. Ab website kholein aur koi shehar search karein. Chal jani chahiye.
+STEP 4 — CHECK KAREIN
+  1. Vercel jo link de (jaise https://ms-weather.vercel.app) woh kholein.
+  2. Alag tab mein  <aapka link>/api/health  kholein.
+     "status":"ok" aaye to backend theek hai.
+  3. Website par koi shehar search karein (jaise Islamabad).
 
-------------------------------------------------
 AGAR KOI MASLA AAYE
-------------------------------------------------
-- Pehli baar site khulne mein 30-60 second lag sakte hain
-  (Render ka free plan soya hota hai). Dobara "Try again" dabayein.
-- "Weather is unavailable": Render ke Logs dekhein, aur check karein
-  ke API key sahi hai aur ALLOWED_ORIGINS bilkul Vercel link jaisa hai.
-- Page blank ho: browser mein F12 > Console ka screenshot bhejein.
-- Agar Render ke bajaye koi aur host use karein to frontend/vercel.json
-  mein connect-src theek rehta hai (https: allowed hai).
+  - Weather na aaye / "Weather service unavailable":
+    API key galat hai ya abhi active nahi hui. Vercel > Settings >
+    Environment Variables mein key check karein, phir Deployments >
+    teen nuqtay > Redeploy karein. (Env variable badalne ke baad
+    hamesha Redeploy karna padta hai.)
+  - Link kholne par Vercel login maange:
+    Vercel > Settings > Deployment Protection mein dekhein.
+  - Build fail ho: Vercel ke "Build Logs" ka screenshot bhej dein.
+  - Page blank ho: browser mein F12 > Console ka screenshot bhej dein.
+  - Pehli search kuch der le sakti hai (function pehli baar jagta hai).
+
+KHAS BAATEIN
+  - Vercel ka free (Hobby) plan sirf personal aur non-commercial use ke liye hai.
+    Asli kamai wali website ke liye Vercel ki shartein zaroor dekhein.
+  - Rate limit aur cache Vercel par utne pakke nahi hote jitne alag server par.
+    Is liye weather ke jawab 5 minute ke liye Vercel ke CDN par cache hote hain.
+  - Apne computer par chalane ke liye: SETUP-API-KEY.bat (key lagane ke liye),
+    phir START-MS-WEATHER.bat.
+  - Agar baad mein backend alag jagah rakhein to VITE_API_BASE_URL daalna hoga
+    aur vercel.json mein connect-src badalni hogi.

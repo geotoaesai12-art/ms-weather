@@ -20,7 +20,7 @@ MONGODB NOTE
 Is version mein weather caching filhaal server ki memory mein hai. MongoDB Atlas URI example file mein hai, lekin persistent MongoDB cache integration abhi implemented nahi hai. Is liye ise fully MongoDB-connected production build na samjhein.
 
 LIVE DEPLOYMENT
-Website live karne ke liye DEPLOY-ROMAN-URDU.txt dekhein (Render + Vercel, step by step). MongoDB abhi use nahi hota, is liye uski zaroorat nahi.
+Website live karne ke liye DEPLOY-ROMAN-URDU.txt dekhein (sirf Vercel, step by step). MongoDB abhi use nahi hota, is liye uski zaroorat nahi.
 
 REQUIREMENTS
 - Node.js LTS (Node 20+ recommended)

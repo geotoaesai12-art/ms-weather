@@ -2,12 +2,14 @@ import { AppError } from '../utils/AppError.js';
 import { logger } from '../utils/logger.js';
 
 export function notFoundHandler(_req, res) {
+  res.set('Cache-Control', 'no-store');
   res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Route not found.' } });
 }
 
 // Every error ends here. Visitors only ever see a code and a friendly message, never stack traces.
 // eslint-disable-next-line no-unused-vars
 export function errorHandler(err, _req, res, _next) {
+  res.set('Cache-Control', 'no-store'); // never let a CDN keep an error
   if (err instanceof AppError) {
     return res.status(err.status).json({ error: { code: err.code, message: err.message } });
   }

@@ -1,10 +1,9 @@
 # Architecture
 
-Browser (React, Vercel) -> Express API (Render) -> OpenWeather API
-                                  |
-                                  +-> MongoDB Atlas (WeatherCache, optional)
+Browser -> Vercel (React site from frontend/ + API function api/index.js) -> OpenWeather API
 
-- The API key and MongoDB URI live only on the backend.
-- The frontend only knows VITE_API_BASE_URL (public).
-- MongoDB is used only for caching normalized weather responses (TTL index).
-  If MongoDB is down, the backend still works by calling OpenWeather directly.
+- `api/index.js` wraps the Express app in `backend/src` as one Vercel serverless function. `vercel.json` sends `/api/*` to it and every other path to the React app.
+- The API key lives only in Vercel's environment variables (or `backend/.env` locally). It is never in the frontend.
+- The website and the API share one address, so no CORS setup is needed. Other websites are rejected unless listed in `ALLOWED_ORIGINS`.
+- Weather answers are cached in memory (per function instance) and by Vercel's CDN for 5 minutes. Errors are never cached.
+- MongoDB is not used yet.

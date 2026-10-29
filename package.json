@@ -13,7 +13,7 @@
     "test": "npm test --prefix backend"
   },
   "engines": {
-    "node": ">=20.19.0"
+    "node": "22.x"
   },
   "devDependencies": {
     "concurrently": "^9.2.5"

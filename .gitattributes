@@ -1,0 +1,7 @@
+# Line endings: ek jaisi rakhne ke liye (LF/CRLF warnings band)
+* text=auto eol=lf
+*.bat text eol=crlf
+*.png binary
+*.jpg binary
+*.ico binary
+*.zip binary

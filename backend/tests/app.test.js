@@ -56,6 +56,23 @@ test('a different website is rejected with 403', async () => {
   assert.equal((await res.json()).error.code, 'ORIGIN_NOT_ALLOWED');
 });
 
+test('our own website address is always allowed (same-origin), even if not in the list', async () => {
+  const host = new URL(base).host;
+  const res = await fetch(`${base}/api/health`, { headers: { Origin: `http://${host}` } });
+  assert.equal(res.status, 200);
+});
+
+test('good weather answers may be cached by the CDN, errors never', async () => {
+  const ok = await fetch(`${base}/api/weather/current?city=Islamabad`);
+  assert.equal(ok.status, 200);
+  assert.match(ok.headers.get('cache-control'), /s-maxage=300/);
+  const bad = await fetch(`${base}/api/weather/current?city=`);
+  assert.equal(bad.status, 400);
+  assert.equal(bad.headers.get('cache-control'), 'no-store');
+  const nf = await fetch(`${base}/api/nope`);
+  assert.equal(nf.headers.get('cache-control'), 'no-store');
+});
+
 test('local-only origins are NOT allowed in production', async () => {
   const res = await fetch(`${base}/api/health`, { headers: { Origin: 'http://localhost:5173' } });
   assert.equal(res.status, 403);
