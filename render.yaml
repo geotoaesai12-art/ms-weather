@@ -1,0 +1,19 @@
+# Render.com blueprint for the backend (API). The frontend goes on Vercel (see DEPLOY-ROMAN-URDU.txt).
+services:
+  - type: web
+    name: ms-weather-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: OPENWEATHER_API_KEY
+        sync: false # you type it in the Render dashboard; it is never stored in the code
+      - key: ALLOWED_ORIGINS
+        sync: false # your live website address, e.g. https://ms-weather.vercel.app

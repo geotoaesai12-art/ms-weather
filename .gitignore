@@ -1,0 +1,13 @@
+node_modules/
+**/node_modules/
+**/.env
+.env
+**/dist/
+coverage/
+.DS_Store
+
+# hosting / editors
+.vercel/
+.render/
+*.log
+.vscode/
