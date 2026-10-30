@@ -1,9 +1,10 @@
 export class ApiError extends Error {
-  constructor(code, status = 0) {
+  constructor(code, status = 0, detail = '') {
     super(code);
     this.name = 'ApiError';
     this.code = code;
     this.status = status;
+    this.detail = detail; // short, friendly text written by our own server (never provider details)
   }
 }
 

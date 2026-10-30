@@ -46,3 +46,17 @@ Codes: `INVALID_INPUT` (400), `ORIGIN_NOT_ALLOWED` (403), `CITY_NOT_FOUND` (404)
 
 ## GET /api/health
 `{ "status": "ok", "uptimeSeconds": 0, "time": "ISO date" }`
+
+## POST /api/contact
+
+Sends a contact-form message by email. Body (JSON, 8 KB at most):
+
+```json
+{ "name": "Ali Khan", "email": "ali@example.org", "topic": "Feedback", "message": "Hello!", "company": "" }
+```
+
+- `topic` is one of `Feedback`, `Question`, `Problem report`, `Other`.
+- `company` is a hidden spam trap and must stay empty. If it is filled in, the answer is still `200` but nothing is sent.
+- Success: `200 { "data": { "sent": true } }`.
+- Errors: `INVALID_INPUT` (400, friendly reason in `message`; 413 if the body is too large), `ORIGIN_NOT_ALLOWED` (403), `RATE_LIMITED` (429), `CONTACT_UNAVAILABLE` (503, not configured), `UPSTREAM_ERROR` (502), `UPSTREAM_TIMEOUT` (504).
+- Responses are never cached.

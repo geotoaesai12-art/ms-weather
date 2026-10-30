@@ -35,3 +35,42 @@ export function parseLocationQuery(query = {}) {
   }
   throw new AppError('INVALID_INPUT', 'Please provide a city or coordinates.', 400);
 }
+
+// ---- Contact form ----
+export const CONTACT_TOPICS = ['Feedback', 'Question', 'Problem report', 'Other'];
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g;
+
+function text(value, label) {
+  if (typeof value !== 'string') throw new AppError('INVALID_INPUT', `Please enter your ${label}.`, 400);
+  return value;
+}
+
+export function validateContactMessage(body) {
+  if (body === null || typeof body !== 'object' || Array.isArray(body)) {
+    throw new AppError('INVALID_INPUT', 'Please fill in the form and try again.', 400);
+  }
+
+  // Hidden field only bots fill in. Pretend all is well and send nothing.
+  if (typeof body.company === 'string' && body.company.trim() !== '') return { spam: true };
+
+  const name = text(body.name, 'name').replace(CONTROL_CHARS, '').replace(/\s+/g, ' ').trim();
+  if (!name) throw new AppError('INVALID_INPUT', 'Please enter your name.', 400);
+  if (name.length > 100) throw new AppError('INVALID_INPUT', 'Your name is too long.', 400);
+
+  const email = text(body.email, 'email address').trim();
+  if (email.length > 254 || !EMAIL_PATTERN.test(email) || email.replace(CONTROL_CHARS, '') !== email) {
+    throw new AppError('INVALID_INPUT', 'Please enter a valid email address.', 400);
+  }
+
+  if (typeof body.topic !== 'string' || !CONTACT_TOPICS.includes(body.topic)) {
+    throw new AppError('INVALID_INPUT', 'Please choose a topic.', 400);
+  }
+
+  const message = text(body.message, 'message').replace(/\r\n?/g, '\n').replace(CONTROL_CHARS, '').trim();
+  if (message.length < 5) throw new AppError('INVALID_INPUT', 'Your message is too short.', 400);
+  if (message.length > 4000) throw new AppError('INVALID_INPUT', 'Your message is too long (4000 characters at most).', 400);
+
+  return { spam: false, name, email, topic: body.topic, message };
+}

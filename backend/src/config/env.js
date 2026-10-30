@@ -18,4 +18,10 @@ export const config = Object.freeze({
   requestTimeoutMs: 8000,
   rateLimit: { windowMs: 60 * 1000, limit: 60 }, // all /api routes
   weatherRateLimit: { windowMs: 60 * 1000, limit: 30 }, // /api/weather only (protects the OpenWeather quota)
+  contactRateLimit: { windowMs: 10 * 60 * 1000, limit: 5 }, // /api/contact only: 5 messages per 10 minutes per visitor
+  contact: {
+    resendApiKey: process.env.RESEND_API_KEY || '',
+    toEmail: (process.env.CONTACT_TO_EMAIL || '').trim(), // the inbox that receives messages
+    fromEmail: (process.env.CONTACT_FROM || 'MS Weather <onboarding@resend.dev>').trim(),
+  },
 });

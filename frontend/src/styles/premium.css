@@ -897,3 +897,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline:3px solid c
   .forecast .hourly__condition { font-size: .75rem; }
   .forecast .hourly__temperature { font-size: .95rem; }
 }
+
+/* Contact form additions */
+.contact-field select { width:100%; border:1px solid var(--border); border-radius:12px; padding:13px 14px; background:var(--surface-solid); color:var(--text); font:inherit; font-weight:400; outline:none; }
+.contact-field select:focus { border-color:var(--accent-text); box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent); }
+.contact-count { justify-self:end; color:var(--muted); font-size:.78rem; font-weight:400; }
+.contact-hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.contact-sent { display:grid; gap:12px; justify-items:start; }
+.contact-sent h3, .contact-sent p { margin:0; }
+.contact-sent p { color:var(--muted); line-height:1.7; }
+.contact-submit:disabled { opacity:.7; cursor:wait; }

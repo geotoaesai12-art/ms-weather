@@ -1,6 +1,7 @@
 import { config } from './config/env.js';
 import { createApp } from './app.js';
 import { createWeatherService } from './services/weatherService.js';
+import { createMailService } from './services/mailService.js';
 import { TTLCache } from './utils/cache.js';
 import { logger } from './utils/logger.js';
 
@@ -17,7 +18,17 @@ const weatherService = createWeatherService({
   cache: new TTLCache(),
 });
 
-const app = createApp({ config, weatherService });
+const mailService = createMailService({
+  apiKey: config.contact.resendApiKey,
+  toEmail: config.contact.toEmail,
+  fromEmail: config.contact.fromEmail,
+  timeoutMs: config.requestTimeoutMs,
+});
+if (!mailService.isConfigured()) {
+  logger.warn('RESEND_API_KEY / CONTACT_TO_EMAIL not set. The contact form will answer "unavailable" until you add them to backend/.env');
+}
+
+const app = createApp({ config, weatherService, mailService });
 const server = app.listen(config.port, () => {
   logger.info('server started', { port: config.port, env: config.nodeEnv });
 });

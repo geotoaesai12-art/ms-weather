@@ -30,8 +30,8 @@ STEP 3 — SETTINGS (bohat kam)
   4. "Environment Variables" kholein aur yeh daalein:
        OPENWEATHER_API_KEY  =  aapki NAYI key          (zaroori)
        VITE_CONTACT_EMAIL   =  aapki email              (optional)
-       NOTE: jab tak yeh email nahi daalte, Contact ka link aur page website par
-       dikhte hi nahi (koi dummy ya adhoora page nahi dikhega). Email daalne ke baad Redeploy karein.
+       NOTE: yeh sirf Contact page par "Prefer email?" wala card dikhata hai (public email).
+       Contact form ke liye neeche STEP 5 dekhein.
   5. "Deploy" dabayein. 2 se 4 minute lagte hain.
 
 STEP 4 — CHECK KAREIN
@@ -39,6 +39,26 @@ STEP 4 — CHECK KAREIN
   2. Alag tab mein  <aapka link>/api/health  kholein.
      "status":"ok" aaye to backend theek hai.
   3. Website par koi shehar search karein (jaise Islamabad).
+
+STEP 5 — CONTACT FORM CHALANA (message seedha aapke Gmail mein)
+  Contact form ab asli hai: visitor Send dabata hai aur message aapke Gmail mein
+  aa jata hai. Is ke liye ek free email service "Resend" chahiye.
+  A) https://resend.com par Sign up karein. Usi Gmail se karein jahan messages
+     chahiye. Gmail mein aayi verification email ka link dabayein.
+  B) Resend mein API Keys > Create API Key dabayein. Naam: ms-weather.
+     Permission: "Sending access". Key copy karein (re_ se shuru hoti hai,
+     sirf ek baar dikhti hai).
+  C) Vercel > Settings > Environment Variables mein yeh 2 daalein:
+       RESEND_API_KEY     =  woh key (re_...)
+       CONTACT_TO_EMAIL   =  wohi Gmail jis se Resend par sign up kiya
+     (Free plan mein CONTACT_TO_EMAIL wohi hona chahiye jis se sign up kiya.)
+  D) Deployments > teen nuqtay > Redeploy.
+  E) Website ka Contact page kholkar khud ko ek message bhejein. Gmail ka Inbox
+     dekhein (pehli baar Spam bhi). Gmail mein Reply dabane se jawab visitor ko jayega.
+  Hadood (free plan, Resend ki site par badal sakti hain): roz 100 email,
+  mahine ke 3,000, aur jab tak aap apna domain verify na karein sirf apni email par.
+  Baad mein: Resend > Domains mein apna domain (jaise ms-weather.com) verify karein,
+  phir Vercel mein CONTACT_FROM = MS Weather <contact@aapka-domain.com> daalein.
 
 AGAR KOI MASLA AAYE
   - Weather na aaye / "Weather service unavailable":
@@ -50,6 +70,13 @@ AGAR KOI MASLA AAYE
     Vercel > Settings > Deployment Protection mein dekhein.
   - Build fail ho: Vercel ke "Build Logs" ka screenshot bhej dein.
   - Page blank ho: browser mein F12 > Console ka screenshot bhej dein.
+  - Contact form "could not send your message" kahe: Vercel > Logs mein
+    "mail provider refused" dhoondein. Wahan wajah likhi hoti hai. Sab se aam:
+    "You can only send testing emails to your own email address" yaani
+    CONTACT_TO_EMAIL wohi nahi jis se Resend par sign up kiya. Key/email badalne
+    ke baad Redeploy karna na bhoolein.
+  - Contact form kehta hai "several messages already": 10 minute mein 5 se zyada
+    message nahi bhej sakte (spam se bachao). Thodi der baad dobara try karein.
   - Pehli search kuch der le sakti hai (function pehli baar jagta hai).
 
 KHAS BAATEIN

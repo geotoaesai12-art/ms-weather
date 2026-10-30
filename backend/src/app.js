@@ -7,6 +7,8 @@ import { requestLogger } from './middleware/requestLogger.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { createWeatherController } from './controllers/weatherController.js';
 import { createWeatherRoutes } from './routes/weatherRoutes.js';
+import { createContactController } from './controllers/contactController.js';
+import { createContactRoutes } from './routes/contactRoutes.js';
 import healthRoutes from './routes/healthRoutes.js';
 
 function isSameSite(origin, host) {
@@ -17,7 +19,7 @@ function isSameSite(origin, host) {
   }
 }
 
-export function createApp({ config, weatherService }) {
+export function createApp({ config, weatherService, mailService }) {
   const app = express();
 
   app.disable('x-powered-by');
@@ -43,6 +45,13 @@ export function createApp({ config, weatherService }) {
   });
   app.use('/api/weather', createRateLimiter(config.weatherRateLimit ?? config.rateLimit));
   app.use('/api/weather', createWeatherRoutes(createWeatherController(weatherService)));
+
+  app.use('/api/contact', (_req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    next();
+  });
+  app.use('/api/contact', createRateLimiter(config.contactRateLimit ?? { windowMs: 10 * 60 * 1000, limit: 5 }));
+  app.use('/api/contact', createContactRoutes(createContactController(mailService)));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
